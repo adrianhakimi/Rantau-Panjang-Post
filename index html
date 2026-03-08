@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rantau Panjang Community</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Roboto, sans-serif;background:#f0f2f5}
+header{background:#1877f2;color:white;padding:12px 20px;font-size:20px;font-weight:700;position:sticky;top:0;z-index:100}
+.container{display:grid;grid-template-columns:260px 1fr 300px;gap:20px;padding:20px;max-width:1200px;margin:auto}
+.sidebar{background:white;padding:15px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,0.08)}
+.sidebar a{display:block;padding:10px;text-decoration:none;color:#333;border-radius:8px;margin-bottom:5px}
+.sidebar a:hover{background:#f0f2f5}
+.feed{display:flex;flex-direction:column;gap:20px}
+.post{background:white;padding:15px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,0.08)}
+.post-header{font-weight:600;margin-bottom:10px}
+.post img{width:100%;border-radius:8px;margin-top:10px}
+.post-actions{display:flex;justify-content:space-around;margin-top:10px;border-top:1px solid #eee;padding-top:10px}
+.post-actions button{background:none;border:none;font-weight:500;cursor:pointer}
+.comment-box{margin-top:10px}
+.comment-box input{width:100%;padding:8px;border-radius:6px;border:1px solid #ddd}
+.comments{margin-top:8px;font-size:14px}
+.rightbar{background:white;padding:15px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,0.08)}
+.card{margin-bottom:15px}
+.card h4{margin:0 0 8px 0}
+@media(max-width:900px){.container{grid-template-columns:1fr}.rightbar{display:none}}
+</style>
+</head>
+<body><header>
+Rantau Panjang Tourism & Community
+</header><div class="container"><div class="sidebar">
+<a href="#">🏠 Home</a>
+<a href="#">📍 Tempat Menarik</a>
+<a href="#">🍜 Makanan Viral</a>
+<a href="#">🛍 Pasar Bebas Cukai</a>
+<a href="#">📸 Galeri</a>
+<a href="#">🧭 Pelancongan</a>
+</div><div class="feed"><div class="post" data-post="1">
+<div class="post-header">Rantau Panjang Tourism</div>
+<div>Selamat datang ke bandar sempadan yang terkenal dengan pasar bebas cukai dan makanan tradisional.</div>
+<img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb">
+<div class="post-actions">
+<button onclick="likePost(1)">👍 Like (<span id="like1">0</span>)</button>
+<button onclick="toggleComment(1)">💬 Comment</button>
+<button onclick="sharePost()">↗ Share</button>
+</div>
+<div class="comment-box" id="commentBox1" style="display:none">
+<input type="text" placeholder="Tulis komen..." onkeypress="addComment(event,1)">
+<div class="comments" id="comments1"></div>
+</div>
+</div><div class="post" data-post="2">
+<div class="post-header">Food Hunter Kelantan</div>
+<div>Nasi kerabu dan ayam percik antara makanan paling popular di Rantau Panjang.</div>
+<img src="https://images.unsplash.com/photo-1604908554027-7c5c2b9a0e7c">
+<div class="post-actions">
+<button onclick="likePost(2)">👍 Like (<span id="like2">0</span>)</button>
+<button onclick="toggleComment(2)">💬 Comment</button>
+<button onclick="sharePost()">↗ Share</button>
+</div>
+<div class="comment-box" id="commentBox2" style="display:none">
+<input type="text" placeholder="Tulis komen..." onkeypress="addComment(event,2)">
+<div class="comments" id="comments2"></div>
+</div>
+</div><div class="post" data-post="3">
+<div class="post-header">Travel Kelantan</div>
+<div>Pemandangan Sungai Golok yang memisahkan Malaysia dan Thailand.</div>
+<img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da">
+<div class="post-actions">
+<button onclick="likePost(3)">👍 Like (<span id="like3">0</span>)</button>
+<button onclick="toggleComment(3)">💬 Comment</button>
+<button onclick="sharePost()">↗ Share</button>
+</div>
+<div class="comment-box" id="commentBox3" style="display:none">
+<input type="text" placeholder="Tulis komen..." onkeypress="addComment(event,3)">
+<div class="comments" id="comments3"></div>
+</div>
+</div></div><div class="rightbar">
+<div class="card">
+<h4>Info Pelancongan</h4>
+<p>Tempat membeli belah murah dan makanan tradisional Kelantan.</p>
+</div>
+<div class="card">
+<h4>Hotel / Homestay</h4>
+<p>Senarai penginapan sekitar Rantau Panjang.</p>
+</div>
+<div class="card">
+<h4>Peta Lokasi</h4>
+<p>Lokasi sempadan Malaysia - Thailand.</p>
+</div>
+</div></div><script>
+let likes={1:0,2:0,3:0}
+
+function likePost(id){
+likes[id]++
+document.getElementById('like'+id).innerText=likes[id]
+}
+
+function toggleComment(id){
+let box=document.getElementById('commentBox'+id)
+box.style.display = box.style.display==='none' ? 'block':'none'
+}
+
+function addComment(e,id){
+if(e.key==='Enter'){
+let text=e.target.value
+if(text.trim()==='') return
+let div=document.createElement('div')
+div.innerText='💬 '+text
+
+document.getElementById('comments'+id).appendChild(div)
+e.target.value=''
+}
+}
+
+function sharePost(){
+let url=window.location.href
+let text="Lihat info pelancongan Rantau Panjang"
+
+if(navigator.share){
+navigator.share({title:'Rantau Panjang Tourism',text:text,url:url})
+}else{
+let shareMenu=`
+Share ke:\n
+Facebook:\nhttps://www.facebook.com/sharer/sharer.php?u=${url}
+
+WhatsApp:\nhttps://wa.me/?text=${url}
+
+Telegram:\nhttps://t.me/share/url?url=${url}
+
+Twitter/X:\nhttps://twitter.com/intent/tweet?url=${url}
+`
+alert(shareMenu)
+}
+}
+</script></body>
+</html>
